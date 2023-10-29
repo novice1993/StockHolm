@@ -2,7 +2,7 @@
 
 ## 모의 주식투자 사이트 (StockHolm)
 
-### 🏃‍♂️ <a href='http://seb008stockholm.s3-website.ap-northeast-2.amazonaws.com/' target='_blank'>배포 링크</a>
+### 🏃‍♂️ <a href='http://seb008stockholm.s3-website.ap-northeast-2.amazonaws.com/' target="_blank">배포 링크</a>
 
 ### 🧑🏻‍💻 개요
 - 제작 기간 : 약 4주 (2023.08 ~ 09)
