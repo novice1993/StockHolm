@@ -11,7 +11,7 @@ http://seb008stockholm.s3-website.ap-northeast-2.amazonaws.com/
 
 <br/>
 
-## 🧑🏻‍💻 개요
+## 📌 개요
 - 제작 기간 : 약 4주 (2023.08 ~ 09)
 - 참여 인원 : 총 7명 (BE 4명, FE 3명)
 - 원본 레포 : https://github.com/codestates-seb/seb45_main_008
@@ -31,7 +31,7 @@ http://seb008stockholm.s3-website.ap-northeast-2.amazonaws.com/
 </div>
 <br/>
 
-## 담당한 역할
+## 🧑🏻‍💻 담당한 역할
 
 ### 1. 주식 데이터 자동 갱신 로직 구현
 - setTimeout과 React-Query를 활용하여 통신 및 데이터 관리 로직 구현
