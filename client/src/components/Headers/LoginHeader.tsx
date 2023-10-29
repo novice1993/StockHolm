@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import StockHolmLogo from "../../asset/images/StockHolmLogo.png";
+import StockHolmLogo from "../../asset/logos/StockHolmLogo.png";
 // import SampleProfile from "../../asset/images/ProfileSample.png";
 import ProfileModal from "../Profile/profileModal";
 import StockSearchComponent from "./stockSearchComponent";
@@ -41,7 +41,7 @@ const LoginHeader: React.FC<LoginHeaderProps> = () => {
 
   // 로고 클릭 처리 함수
   const handleLogoClick = () => {
-    window.location.reload()
+    window.location.reload();
   };
 
   // 로그아웃 클릭 처리 함수
@@ -49,6 +49,8 @@ const LoginHeader: React.FC<LoginHeaderProps> = () => {
     dispatch(setLogoutState()); // 전역변수에서 로그아웃 상태로 설정
     localStorage.removeItem("accessToken"); // 엑세스 토큰 제거
     localStorage.removeItem("refreshToken"); // 리프레시 토큰 제거
+    localStorage.removeItem("autoLogoutSecondAlarm");
+    localStorage.removeItem("autoLogoutLastAlarm");
 
     // 페이지를 새로고침합니다.
     window.location.reload();

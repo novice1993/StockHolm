@@ -2,11 +2,14 @@ import * as echarts from "echarts";
 import { styled } from "styled-components";
 import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
-import { getKospiData } from "../../hooks/useGetKospiChart.ts";
+import axios from "axios";
+
 const MarketkospiChart = () => {
   const [kospiData, setKospiData] = useState([]);
 
-  const { data, isLoading, error } = useQuery("kospi", getKospiData, {});
+  const { data, isLoading, error } = useQuery("kospi", getKospiData, {
+    staleTime: Infinity,
+  });
 
   useEffect(() => {
     if (data) {
@@ -87,7 +90,8 @@ const MarketkospiChart = () => {
 
               data: kospiData.map((item: KospiProps, index: number, array: KospiProps[]) => {
                 const currentPrice = parseFloat(item.bstp_nmix_oprc);
-                const previousPrice = index > 0 ? parseFloat(array[index - 1].bstp_nmix_oprc) : currentPrice;
+                const previousPrice =
+                  index > 0 ? parseFloat(array[index - 1].bstp_nmix_oprc) : currentPrice;
 
                 // 현재 가격과 이전 가격을 비교하여 색상 설정
                 const color = currentPrice > previousPrice ? "#f87369" : "#5a99f8";
@@ -116,6 +120,14 @@ const MarketkospiChart = () => {
 };
 
 export default MarketkospiChart;
+
+const getKospiData = async () => {
+  const res = await axios.get("http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/kospi");
+  const chartData = res.data.output2;
+  const kospiData = chartData.reverse();
+
+  return kospiData;
+};
 
 interface KospiProps {
   acml_tr_pbmn: string;

@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import ExpandScreenBtn from "./ExpandScreenBtn";
 import StockOverview from "./StockOverview";
 import StockOrderBtn from "./StockOrderBtn";
-// import CompareChartBtn from "./CompareChartBtn";
 
 const UpperMenuBar = () => {
   return (
@@ -10,14 +9,10 @@ const UpperMenuBar = () => {
       <div className="FirstLine">
         <ExpandScreenBtn direction="left" />
         <StockOverview />
-        {/* <BookmarkBtn /> */}
         <StockOrderBtn type="buying" />
         <StockOrderBtn type="selling" />
         <ExpandScreenBtn direction="right" />
       </div>
-      {/* <div className="SecondLine">
-        <CompareChartBtn />
-      </div> */}
     </Container>
   );
 };

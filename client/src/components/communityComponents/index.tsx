@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import Comments from "./Comments";
 import { DotIcon } from "./IconComponent/Icon";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const serverUrl = "http://ec2-13-125-246-160.ap-northeast-2.compute.amazonaws.com:8080/api/boards";
+const serverUrl = "http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com:8080/api/boards";
 
 const TimeLineComponent = () => {
   const [boardData, setBoardData] = useState<BoardData[]>([]);
@@ -61,6 +62,13 @@ const TimeLineComponent = () => {
   // 서브밋 버튼 클릭
   const accessToken = localStorage.getItem("accessToken");
   const handleClickSubmit = async () => {
+    // 로그인 토큰 확인
+    if (!accessToken) {
+      toast.error("로그인이 필요한 서비스입니다", {
+        autoClose: 1000,
+      });
+      return;
+    }
     if (inputValue.length !== 0) {
       const newBoardData = {
         title: "TestBoard",
@@ -142,60 +150,77 @@ const TimeLineComponent = () => {
 
   const [expandedPosts, setExpandedPosts] = useState<number[]>([]);
   const toggleExpandPost = (boardId: number) => {
-    setExpandedPosts((prevExpandedPosts) => (prevExpandedPosts.includes(boardId) ? prevExpandedPosts.filter((id) => id !== boardId) : [...prevExpandedPosts, boardId]));
+    setExpandedPosts((prevExpandedPosts) =>
+      prevExpandedPosts.includes(boardId)
+        ? prevExpandedPosts.filter((id) => id !== boardId)
+        : [...prevExpandedPosts, boardId]
+    );
   };
 
   return (
-    <TimeLine>
-      {openDropDown === false && <Button onClick={handleSetOpenDropDown}></Button>}
-      {openDropDown === true && (
-        <>
-          <DropdownInput type="text" placeholder="이곳에 작성해 주세요" value={inputValue} onChange={handleOnChange}></DropdownInput>
+    <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+      <TimeLine>
+        {openDropDown === false && <Button onClick={handleSetOpenDropDown}></Button>}
+        {openDropDown === true && (
+          <>
+            <DropdownInput
+              type="text"
+              placeholder="이곳에 작성해 주세요"
+              value={inputValue}
+              onChange={handleOnChange}
+            ></DropdownInput>
 
-          <ButtonContainer>
-            <SubmitButton onClick={handleClickSubmit}>Submit</SubmitButton>
-            <CloseButton onClick={handleSetOpenDropDown}>Cancle</CloseButton>
-          </ButtonContainer>
-        </>
-      )}
-      <DevideLine></DevideLine>
-      <BoardArea dropDown={openDropDown}>
-        {boardData.length === 0 ? (
-          <BoardTextAreaNoText>{timeLineText.notYetWriting}</BoardTextAreaNoText>
-        ) : (
-          boardData
-            .slice()
-            .reverse()
-            .map((el: BoardData) => (
-              <BoardTextArea key={el.boardId}>
-                <Delete>
-                  <div onClick={() => handleDotOpen(el.boardId)}>
-                    <DotIcon />
-                  </div>
-                  {dotMenuOpenMap[el.boardId] && <DeleteBoard onClick={() => handleDeleteClick(el.boardId)}>{timeLineText.delete}</DeleteBoard>}
-                </Delete>
-                <BoardText>
-                  <MemberInfo>
-                    <MemberName>{el.member}</MemberName>
-                    <div>{getTimeAgoString(el.createdAt)}</div>
-                  </MemberInfo>
-
-                  {expandedPosts.includes(el.boardId) ? (
-                    el.content
-                  ) : (
-                    <>
-                      {el.content.length > 50 ? el.content.substring(0, 50) + "..." : el.content}
-                      <br />
-                      {el.content.length > 50 && <div onClick={() => toggleExpandPost(el.boardId)}>더 보기</div>}
-                    </>
-                  )}
-                </BoardText>
-                <Comments boardId={el.boardId}></Comments>
-              </BoardTextArea>
-            ))
+            <ButtonContainer>
+              <SubmitButton onClick={handleClickSubmit}>Submit</SubmitButton>
+              <CloseButton onClick={handleSetOpenDropDown}>Cancel</CloseButton>
+            </ButtonContainer>
+          </>
         )}
-      </BoardArea>
-    </TimeLine>
+        <DevideLine></DevideLine>
+        <BoardArea dropDown={openDropDown}>
+          {boardData.length === 0 ? (
+            <BoardTextAreaNoText>{timeLineText.notYetWriting}</BoardTextAreaNoText>
+          ) : (
+            boardData
+              .slice()
+              .reverse()
+              .map((el: BoardData) => (
+                <BoardTextArea key={el.boardId}>
+                  <Delete>
+                    <div onClick={() => handleDotOpen(el.boardId)}>
+                      <DotIcon />
+                    </div>
+                    {dotMenuOpenMap[el.boardId] && (
+                      <DeleteBoard onClick={() => handleDeleteClick(el.boardId)}>
+                        {timeLineText.delete}
+                      </DeleteBoard>
+                    )}
+                  </Delete>
+                  <BoardText>
+                    <MemberInfo>
+                      <MemberName>{el.member}</MemberName>
+                      <div>{getTimeAgoString(el.createdAt)}</div>
+                    </MemberInfo>
+
+                    {expandedPosts.includes(el.boardId) ? (
+                      el.content
+                    ) : (
+                      <>
+                        {el.content.length > 50 ? el.content.substring(0, 50) + "..." : el.content}
+                        <br />
+                        {el.content.length > 50 && (
+                          <div onClick={() => toggleExpandPost(el.boardId)}>더 보기</div>
+                        )}
+                      </>
+                    )}
+                  </BoardText>
+                  <Comments boardId={el.boardId}></Comments>
+                </BoardTextArea>
+              ))
+          )}
+        </BoardArea>
+      </TimeLine>
+    </motion.div>
   );
 };
 

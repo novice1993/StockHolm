@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 import useCompanyData from "../../hooks/useCompanyData";
-
 import CompareList from "./CompareList";
-import IconImg from "../../asset/CentralSectionMenu-compareChart.png";
+import IconImg from "../../asset/icon/CentralSectionMenu-compareChart.png";
 
 const buttonText: string = "비교종목";
 
@@ -30,12 +29,10 @@ const CompareChartBtn = () => {
       {compare && (
         <CompareContainer onMouseOver={handleOnCompareList} onMouseLeave={handleOffCompareList}>
           <StockList>
-            {companyList?.map((company) => {
-              const corpName = company.korName;
-              const companyId = company.companyId;
-
-              return <CompareList corpName={corpName} compareCompanyId={companyId} />;
+            {companyList?.map(({ korName, companyId }) => {
+              return <CompareList corpName={korName} compareCompanyId={companyId} />;
             })}
+            <CompareList corpName="비교차트 제거" compareCompanyId={null} />
           </StockList>
         </CompareContainer>
       )}
@@ -100,7 +97,7 @@ const StockList = styled.div`
   line-height: 147%;
 
   width: 92px;
-  height: 260px;
+  height: 280px;
   padding: 5px;
   border-radius: 0.4rem;
   z-index: 2;

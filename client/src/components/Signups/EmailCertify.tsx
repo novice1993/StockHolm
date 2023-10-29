@@ -1,6 +1,7 @@
 // /client/src/components/Signups/EmailCertify.tsx
 import axios from "axios";
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 // 고정 문자열을 정의
@@ -15,7 +16,11 @@ const strings = {
 };
 
 // 이메일 인증 모달 컴포넌트
-const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ onClose, onNextStep, initialEmail }) => {
+const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
+  onClose,
+  onNextStep,
+  initialEmail,
+}) => {
   const [email, setEmail] = useState(initialEmail);
   const [verificationCode, setVerificationCode] = useState("");
   const [hasAgreed, setHasAgreed] = useState(false);
@@ -24,7 +29,7 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ onClose
 
   // 엔터키를 눌렀을 때의 핸들러
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       handleNextStepClick();
     }
   };
@@ -54,7 +59,7 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ onClose
 
     try {
       const response = await axios.post(
-        "http://ec2-13-125-246-160.ap-northeast-2.compute.amazonaws.com:8080/email/confirm",
+        "http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com:8080/email/confirm",
         { email, code: verificationCode },
         {
           validateStatus: function (status) {
@@ -86,23 +91,36 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ onClose
 
   return (
     <ModalBackground>
-      <ModalContainer>
-        <CloseButton onClick={onClose}>&times;</CloseButton>
-        <Title>{strings.titleText}</Title>
-        <Label>{strings.emailLabelText}</Label>
-        <Input type="email" value={email} onChange={handleEmailChange} onKeyDown={handleKeyPress}/>
-        <Label>{strings.codeLabelText}</Label>
-        <Input type="text" placeholder={strings.codeHintText} value={verificationCode} onChange={handleVerificationCodeChange} onKeyDown={handleKeyPress}/>
-        <HintText>{strings.codeHintText}</HintText>
-        <TermsCheckbox>
-          <input type="checkbox" id="terms" onChange={handleAgreementChange} />
-          <label htmlFor="terms">{strings.termsText}</label>
-        </TermsCheckbox>
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+        <ModalContainer>
+          <CloseButton onClick={onClose}>&times;</CloseButton>
+          <Title>{strings.titleText}</Title>
+          <Label>{strings.emailLabelText}</Label>
+          <Input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            onKeyDown={handleKeyPress}
+          />
+          <Label>{strings.codeLabelText}</Label>
+          <Input
+            type="text"
+            placeholder={strings.codeHintText}
+            value={verificationCode}
+            onChange={handleVerificationCodeChange}
+            onKeyDown={handleKeyPress}
+          />
+          <HintText>{strings.codeHintText}</HintText>
+          <TermsCheckbox>
+            <input type="checkbox" id="terms" onChange={handleAgreementChange} />
+            <label htmlFor="terms">{strings.termsText}</label>
+          </TermsCheckbox>
 
-        {showAgreementError && <ErrorMessage>{strings.agreementError}</ErrorMessage>}
-        <SignupButton onClick={handleNextStepClick}>{strings.nextStepText}</SignupButton>
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-      </ModalContainer>
+          {showAgreementError && <ErrorMessage>{strings.agreementError}</ErrorMessage>}
+          <SignupButton onClick={handleNextStepClick}>{strings.nextStepText}</SignupButton>
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        </ModalContainer>
+      </motion.div>
     </ModalBackground>
   );
 };

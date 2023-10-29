@@ -6,13 +6,25 @@ import styled from "styled-components";
 import DetailStockInformation from "../../components/stockinfoComponents/index";
 import { Community } from "./communityPage";
 import { useState } from "react";
-import {
-  MarketImages,
-  InfoImages,
-  CommunityImages,
-} from "../../components/communityComponents/IconComponent/Icon";
+import { MarketImages, InfoImages, CommunityImages } from "../../components/communityComponents/IconComponent/Icon";
+import { useLocation } from "react-router-dom";
 export const TabContainerPage = () => {
-  const [activeTab, setActiveTab] = useState(1);
+  const location = useLocation();
+  const initialTab = getInitialTab(location.pathname);
+
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  // 초기 탭 번호를 반환하는 함수
+  function getInitialTab(pathname: string) {
+    switch (pathname) {
+      case "/stockitems":
+        return 2;
+      case "/community":
+        return 3;
+      default:
+        return 1;
+    }
+  }
   const handleClickActiveTab = (number: number) => {
     setActiveTab(number);
   };
@@ -22,34 +34,19 @@ export const TabContainerPage = () => {
 
   return (
     <TabContainerStyle className="scroll" rightScreen={rightScreen}>
-      <style>
-        @import
-        url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@500&display=swap');
-      </style>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@500&display=swap');</style>
 
       <div>
         <TabNavArea>
-          <Nav
-            to="/"
-            onClick={() => handleClickActiveTab(1)}
-            className={`tab ${activeTab === 1 ? "active-tab" : "inactive-tab"}`}
-          >
+          <Nav to="/" onClick={() => handleClickActiveTab(1)} className={`tab ${activeTab === 1 ? "active-tab" : "inactive-tab"}`}>
             <MarketImages />
             {TabContainerText.marketInfo}
           </Nav>
-          <Nav
-            to="/stockitems"
-            onClick={() => handleClickActiveTab(2)}
-            className={`tab ${activeTab === 2 ? "active-tab" : "inactive-tab"}`}
-          >
+          <Nav to="/stockitems" onClick={() => handleClickActiveTab(2)} className={`tab ${activeTab === 2 ? "active-tab" : "inactive-tab"}`}>
             <InfoImages />
             {TabContainerText.StockInfo}
           </Nav>
-          <Nav
-            to="/community"
-            onClick={() => handleClickActiveTab(3)}
-            className={`tab ${activeTab === 3 ? "active-tab" : "inactive-tab"}`}
-          >
+          <Nav to="/community" onClick={() => handleClickActiveTab(3)} className={`tab ${activeTab === 3 ? "active-tab" : "inactive-tab"}`}>
             <CommunityImages />
             {TabContainerText.community}
           </Nav>
@@ -77,10 +74,6 @@ const TabContainerStyle = styled.div<{ rightScreen: boolean }>`
   min-width: 400px;
 
   border-left: 1px solid black;
-  /* overflow: scroll;
-  &.scroll::-webkit-scrollbar {
-    display: none;
-  } */
 `;
 
 const TabNavArea = styled.div`
