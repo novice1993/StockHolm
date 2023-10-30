@@ -17,8 +17,8 @@ http://seb008stockholm.s3-website.ap-northeast-2.amazonaws.com/
 ## 📌 개요
 - 제작 기간 : 약 4주 (2023.08 ~ 09)
 - 참여 인원 : 총 7명 (BE 4명, FE 3명)
-- 원본 레포 : <a href='https://github.com/codestates-seb/seb45_main_008/pulls?q=is%3Apr+is%3Aclosed'>PR 기록 링크</a>
-- 관련 회고 : <a href='https://velog.io/@novice93/팀-프로젝트-모의-주식투자-사이트-StockHolm'>회고 보러가기</a> 
+- <a href='https://github.com/codestates-seb/seb45_main_008/pulls?q=is%3Apr+author%3A%40me+is%3Aclosed'>PR 기록 링크</a>
+- <a href='https://velog.io/@novice93/팀-프로젝트-모의-주식투자-사이트-StockHolm'>회고 보러가기</a> 
 <br/>
 
 ## ⚒ 기술 스택 (FE)
