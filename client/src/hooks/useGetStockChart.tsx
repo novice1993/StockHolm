@@ -14,11 +14,11 @@ const pointerColor = "#cc3c3a";
 const indexColor = "#4479c2";
 const averageLineMinute = 10;
 
-const openPriceText = "• 시가";
-const closePriceText = "• 종가";
-const highPriceText = "• 고가";
-const lowPriceText = "• 저가";
-const volumeText = "• 거래량";
+const openPriceText = "・ 시가";
+const closePriceText = "・ 종가";
+const highPriceText = "・ 고가";
+const lowPriceText = "・ 저가";
+const volumeText = "・ 거래량";
 const priceUnit = " 원";
 const volumeUnit = " 주";
 
