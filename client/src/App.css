@@ -1,4 +1,10 @@
+@font-face {
+  font-family: "Nanum";
+  src: url("./asset/font/NanumSquareR.ttf") format("truetype");
+}
+
 * {
+  font-family: "Nanum", Arial, Helvetica, sans-serif;
   box-sizing: border-box;
   margin: 0px;
   list-style: none;
