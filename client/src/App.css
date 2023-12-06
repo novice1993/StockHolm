@@ -1,10 +1,4 @@
-@font-face {
-  font-family: "globalFont";
-  src: url("./asset/font/KimjungchulGothic-Regular.ttf") format("truetype");
-}
-
 * {
-  font-family: "globalFont", Arial, Helvetica, sans-serif;
   box-sizing: border-box;
   margin: 0px;
   list-style: none;
