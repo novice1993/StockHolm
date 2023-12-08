@@ -11,6 +11,8 @@
 ## 🏃‍♂️ 배포 링크
 http://seb008stockholm.s3-website.ap-northeast-2.amazonaws.com/
 <br/>
+* 서버 배포 담당자의 AWS 계정 이슈로 서버와의 통신이 불가한 상황입니다 
+<br/>
 
 <br/>
 
