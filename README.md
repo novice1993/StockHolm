@@ -1,6 +1,3 @@
-<br/>
-<img src="https://cdn.discordapp.com/attachments/1144140016281473055/1146001477249269851/2023-08-29_5.27.59.png">
-
 # StockHolm
 > 주식 입문자를 위한 차트 기반의 모의 주식투자 사이트 입니다.<br/>
 한국투자증권 오픈 API를 활용하여 실제 주식시장의 주가/거래량 데이터를 제공합니다. <br/>
@@ -9,7 +6,8 @@
 <br/>
 
 ## 🏃‍♂️ 배포 링크
-http://seb008stockholm.s3-website.ap-northeast-2.amazonaws.com/
+~~http://seb008stockholm.s3-website.ap-northeast-2.amazonaws.com/~~
+<br/><u>(AWS 계정 이슈로 현재는 조회가 어렵습니다)</u>
 <br/>
 <br/>
 
